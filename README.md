@@ -48,7 +48,7 @@ embed = Embedding(vocab_size + 1, vector_size,  mask_zero=True)
 encoder = MaskCuDNNGRU(units=16, return_sequences = False, return_state = True, name = 'encoder')
 
 decoder_1 = MaskCuDNNGRU(units=16, return_sequences = True, return_state = False, name = 'decoder_1')
-decoder_2 = MaskCuDNNGRU(units=32, return_sequences = False, return_state = False, name = 'decoder_2')
+decoder_2 = Bidirectional(MaskCuDNNGRU(units=32, return_sequences = False, return_state = False) name = 'decoder_2')
 fc = Dense(vocab_size, activation='softmax')
 
 # Create Training model
@@ -72,7 +72,7 @@ train_model = Model([input_enc, input_dec], [x])
 ```
 mask_cudnn_gru(units: int, use_cudnn: bool, return_sequences: bool = False, return_state: bool = False, **kwargs)
 ```
-This function can create [MaskCuDNNGRU](#MaskCuDNNGRU) and CuDNN-compatible [conventional GRU](https://keras.io/layers/recurrent/#gru).
+This function can create [MaskCuDNNGRU](#MaskCuDNNGRU) and CuDNN-compatible [conventional GRU](https://keras.io/layers/recurrent/#gru). Both layers can exchange the weights together. [https://stackoverflow.com/questions/52900017/keras-loading-model-built-with-cudnnlstm-on-host-without-gpu]
 
 #### Argument
 * **units**: Positive integer, dimensionality of the output space.
@@ -98,7 +98,7 @@ encoder = MaskCuDNNGRU(units=16, use_cudnn=use_cudnn, return_sequences = False, 
 # ...
 # ...
 ```
-
+<br/>
 
 
 
