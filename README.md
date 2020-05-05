@@ -118,8 +118,6 @@ Please make sure to update tests as appropriate.
 
 * **Tanapat Kahabodeekanokkul** - *Author* - [pahntanapat](https://gist.github.com/pahntanapat)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
 
 ## License
 
