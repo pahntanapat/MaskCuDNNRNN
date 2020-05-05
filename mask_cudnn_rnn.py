@@ -18,6 +18,7 @@ def mask_cudnn_gru(units: int,
                    recurrent_activation='sigmoid',
                    return_sequences=return_sequences,
                    return_state=return_state,
+                   reset_after=True,
                    **kwargs)
 
 
