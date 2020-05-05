@@ -23,7 +23,6 @@ def mask_cudnn_gru(units: int,
 
 class MaskCuDNNGRU(Layer):
     rnn = None
-    remove = None
 
     def __init__(self,
                  units: int,
