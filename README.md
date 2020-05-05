@@ -23,27 +23,54 @@ Now, we do not distribute it on any channel. Please clone the git or copy the [m
 
 ## Usages
 
-### MaskCuDNNGRU
+### MaskCuDNNGRU <a name="MaskCuDNNGRU"></a>
 ```
 MaskCuDNNGRU(units: int, return_sequences: bool = False, return_state: bool = False, **kwargs)
 ```
+Masking-compatible CuDNNGRU
 
-[](https://keras.io/layers/recurrent/#cudnngru)
+#### Argument
+* units: Positive integer, dimensionality of the output space.
+* return_sequences: boolean, if True, return the full sequence, else, return the last output.
+* return_state: boolean, whether to return the last state in addition to the output.
+* **kwargs: other optional arguments, same to Keras' [CuDNNGRU](https://keras.io/layers/recurrent/#cudnngru)
 
+
+#### Example
+```
+from keras.layer import Embedding, Input
+from mask_cudnn_rnn import MaskCuDNNGRU
+
+embed = Embedding(vocab_size+1, vector_size,  mask_zero=True)
+encoder = MaskCuDNNGRU()
+
+decoder_1 = MaskCuDNNGRU()
+decoder_2 = MaskCuDNNGRU()
+fc = Dense()
+```
+
+
+### mask_cudnn_gru
+```
+mask_cudnn_gru(units: int, use_cudnn: bool, return_sequences: bool = False, return_state: bool = False, **kwargs)
+```
+This function can create [MaskCuDNNGRU](#MaskCuDNNGRU) and CuDNN-compatible [conventional GRU](https://keras.io/layers/recurrent/#gru).
+
+#### Argument
+* units: Positive integer, dimensionality of the output space.
+* use_cudnn: boolean, If True, return [MaskCuDNNGRU](#MaskCuDNNGRU), else, return [GRU](https://keras.io/layers/recurrent/#gru).
+* return_sequences: boolean, if True, return the full sequence, else, return the last output.
+* return_state: boolean, whether to return the last state in addition to the output.
+* **kwargs: other optional arguments, same to Keras' [CuDNNGRU](https://keras.io/layers/recurrent/#cudnngru)
+
+#### Example
 ```
 from mask_cudnn_rnn import MaskCuDNNGRU
 
 mask_gru = MaskCuDNNGRU()
 ```
 
-#### For example
-```
-from keras.layer import Embedding
-from mask_cudnn_rnn import MaskCuDNNGRU
 
-Embedding(vocab_size+1, vector_size,  mask_zero=True)
-```
-### Return stage and sequence
 
 
 ## Contributing
