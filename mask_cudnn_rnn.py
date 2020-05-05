@@ -54,9 +54,7 @@ class MaskCuDNNGRU(Layer):
             index = K.cumsum(index, 1) + index
             index = K.equal(index, K.max(index, 1, True))
 
-            index = K.cast(
-                K.repeat_elements(K.expand_dims(index, -1), self.units, -1),
-                K.floatx())
+            index = K.cast(K.expand_dims(index, -1), K.floatx())
             state = K.sum(x * index, 1)
         else:
             state = x[:, -1]
