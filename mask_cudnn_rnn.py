@@ -60,13 +60,9 @@ class MaskCuDNNGRU(Layer):
             index = K.cast(
                 K.repeat_elements(K.expand_dims(index, -1), self.units, -1),
                 K.floatx())
-            #index = K.repeat_elements(K.expand_dims(K.one_hot(index, num_classes=shape[1]), -1),shape[-1], -1)
-            #print(K.int_shape(x),K.int_shape(mask),K.int_shape(index))
-            #x = K.stack([i[b, i] for b, i in enumerate(index)])
             state = K.sum(x * index, 1)
         else:
             state = x[:, -1]
-        # print(K.int_shape(x))
 
         if (self.return_sequences):
             return [x, state]
@@ -81,12 +77,12 @@ class MaskCuDNNGRU(Layer):
         seq = (input_shape[0], input_shape[1],
                self.units) if (self.return_sequences) else (input_shape[0],
                                                             self.units)
-        #print('seq=',seq)
+
         if (self.return_state):
             return [seq, (input_shape[0], self.units)]
         return seq
 
     def compute_mask(self, input, mask=None):
         if (self.return_sequences and (mask is not None)):
-            return mask  #K.repeat_elements(K.all(mask, -1, True), self.units, -1)
+            return mask
         return None
