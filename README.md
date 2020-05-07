@@ -6,9 +6,11 @@ Custom layer for CuDNN RNN which are compatible with masking
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 ### Concept of MaskCuDNNGRU layer
-.............
-............
-...........
+Because CuDNN RNN layer (CuDNNGRU and CuDNNLSTM) in Keras is faster than normal RNN in GPU training. However it do not support masking. So, this MaskCuDNNGRU is created to solve this problem.
+
+MaskCuDNNGRU computes all timesteps of input whether or not it recieves masking. If return_sequence is True, it return all timesteps and masking. If return_sequence is False or return_state is True, the last step in sequence which is in masking is return.
+
+This process is not computational efficiency (because it calculates all timesteps). But it may be faster than conventional RNN and better than non-masked result.
 
 ### Prerequisites
 
@@ -125,7 +127,8 @@ Please make sure to update tests as appropriate.
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
+* [Keras GRU](https://keras.io/layers/recurrent)
+* [Keras backend](https://keras.io/backend)
+* [Keras: Loading model built with CuDNNLSTM on host without GPU](https://stackoverflow.com/questions/52900017/keras-loading-model-built-with-cudnnlstm-on-host-without-gpu), Stack Overflow.
 * Billie Thompson, [PurpleBooth/README-Template.md](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2) :: Great README template
-* etc
+
